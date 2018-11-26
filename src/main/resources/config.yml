@@ -1,0 +1,95 @@
+moudules:
+    NoCrowedEntity:
+        enable: true
+        # WorldBlackList Case sensitive
+        world_blacklist: 
+            - w1
+            - w2
+            - w3
+        # EntityBlackList Case sensitive
+        entity_blacklist:
+            - ITEMFRAME
+            - ITEM
+            - PAINTING
+            - MINECART
+            - MINECART_CHEST
+            - MINECART_COMMAND
+            - MINECART_FURNACE
+            - MINECART_HOPPER
+            - MINECART_MOB_SPAWNER
+            - MINECART_TNT
+            - PLAYER
+            - ARMOR_STAND
+          #You not want some player removed from server right?
+        limits: 15
+    ItemCleaner:
+    # ItemCleaner only remove item when Chunks load/unload, Worlds load/unload.
+    # To give player a great game experience.
+    # When player death, that chunk will auto protected until player offline or go back pick him items.
+        enable: true
+        world_blacklist: 
+            - w1
+            - w2
+            - w3
+        #Case sensitive
+        item_blacklist:
+            - DIAMOND_SWORD
+            - DIAMOND_PICKAXE
+            - DIAMOND_AXE
+            - DIAMOND_HOE
+            - DIAMOND_SHOVEL
+            - DIAMOND_CHESTPLATE
+            - DIAMOND_HELMET
+            - DIAMOND_LEGGINGS
+            - DIAMOND_BLOCK
+            - DIAMOND
+            - BEACON
+            - DRAGON_EGG
+            - DRAGON_HEAD
+    ChunkAutoUnloader:
+        # Not recommand, because will unload player'side chunks.
+        enable: false
+        world_blacklist: 
+            - w1
+            - w2
+            - w3
+        unloadType:
+            # No player in that chunk.
+            # Not recommand, because will unload player'side chunks.
+            NoPlayer: false
+            OutOfMemory: 
+                enable: true
+                # Unit: MB
+                limit: 128
+    SmartDisableAI:
+        enable: true
+        world_blacklist: 
+            - w1
+            - w2
+            - w3
+        entity_whitelist:
+            - ZOMBIE
+            - SKELETON
+            - CREEPER
+        #If server low than this limit, all not in blacklist mobs will disabled their Ai.
+        limit: 14.99
+        #Use tag
+        tag: true
+        #Show a name on mobs tag.
+        tagname: "Disabled AI"
+        #How long time check TPS once? Unit: tick  20ticks=1sec
+        time: 600
+    ChunksPreloader:
+    #PreloadChunksBeforeTeleport
+        enable: false
+    AntiWaterFall:
+        enable: true
+        world_blacklist: 
+            - w1
+            - w2
+            - w3
+        lava_limit: 6
+        lava_nether_limit: 10
+        water_limit: 10
+        other_limit: 10
+        

@@ -1,0 +1,3 @@
+name: ${name}
+main: ${package}
+version: ${version}

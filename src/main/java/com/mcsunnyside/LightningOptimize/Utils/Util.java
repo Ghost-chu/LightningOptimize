@@ -50,7 +50,7 @@ public class Util {
 		return time;
 	}
 	public static void debugLog(String text) {
-		MsgUtil.info("[DEBUG] "+text);
+		MsgUtil.info("DEBUG","Messager",text);
 	}
 	private static Object serverInstance;
     private static Field tpsField;

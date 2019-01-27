@@ -36,7 +36,7 @@ public class ItemCleaner implements Listener {
 	boolean uninited = false;
 	@SuppressWarnings("unchecked")
 	public ItemCleaner(Main plugin) {
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Loading...");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Loading...");
 		UUID timeUUID = Util.setTimer();
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		this.plugin = plugin;
@@ -44,17 +44,17 @@ public class ItemCleaner implements Listener {
 		this.world_BlackList = (List<String>)config.getList("world_blacklist");
 		this.item_BlackList = (List<String>)config.getList("item_blacklist");
 		uninited=false;
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Completed ("+Util.endTimer(timeUUID)+"ms)");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Completed ("+Util.endTimer(timeUUID)+"ms)");
 	}
 	public void uninit() {
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Unloading...");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Unloading...");
 		UUID timeUUID = Util.setTimer();
 		uninited=true;
 		config=null;
 		item_BlackList.clear();
 		world_BlackList.clear();
 		death_chunks.clear();
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Unloaded ("+Util.endTimer(timeUUID)+"ms)");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Unloaded ("+Util.endTimer(timeUUID)+"ms)");
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onChunkLoad(ChunkLoadEvent e) {

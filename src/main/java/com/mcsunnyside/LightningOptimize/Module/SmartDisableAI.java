@@ -44,7 +44,7 @@ public class SmartDisableAI implements Listener {
 	boolean uninited = false;
 	@SuppressWarnings("unchecked")
 	public SmartDisableAI(Main plugin) {
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Loading...");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Loading...");
 		UUID timeUUID = Util.setTimer();
 		this.plugin = plugin;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -77,7 +77,7 @@ public class SmartDisableAI implements Listener {
 			e.printStackTrace();
 			plugin.getLogger().log(Level.WARNING, "Could not load/save tasks from smartai.dat. Skipping.");
 		}
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Completed ("+Util.endTimer(timeUUID)+"ms)");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Completed ("+Util.endTimer(timeUUID)+"ms)");
 		restoreTask();
 		cronTask();
 		
@@ -91,7 +91,7 @@ public class SmartDisableAI implements Listener {
 				List<List<?>> tasking = (List<List<?>>) smartaidata.getList("waiting");
 				if (!tasking.isEmpty())
 					MsgUtil.info(
-							"Moudles >> SmartDisableAI >> Trying restore not finished work(Server accident shutdown?)...");
+							"Moudles",this.getClass().getName(),"Trying restore not finished work(Server accident shutdown?)...");
 				UUID timerUUID = Util.setTimer();
 				for (List<?> list : tasking) {
 					@SuppressWarnings("unchecked")
@@ -105,13 +105,13 @@ public class SmartDisableAI implements Listener {
 					enableAI(entity);
 					world.getChunkAt(chunkX, chunkZ).unload(true);
 				}
-				MsgUtil.info("Moudles >> SmartDisableAI >> Completed (" + Util.endTimer(timerUUID) + "ms)");
+				MsgUtil.info("Moudles",this.getClass().getName(),"Completed (" + Util.endTimer(timerUUID) + "ms)");
 			}
 		}.runTaskLater(plugin, 1); // Make sure only run code after server running.
 
 	}
 	public void uninit() {
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Unloading...");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Unloading...");
 		UUID timeUUID = Util.setTimer();
 		saveDat();
 		restoreTask();
@@ -122,7 +122,7 @@ public class SmartDisableAI implements Listener {
 		config=null;
 		smartaiFile=null;
 		task.cancel();
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Unloaded ("+Util.endTimer(timeUUID)+"ms)");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Unloaded ("+Util.endTimer(timeUUID)+"ms)");
 	}
 
 	private void cronTask() {

@@ -29,7 +29,7 @@ public class NoCrowdEntity implements Listener {
 	@SuppressWarnings("unchecked")
 	public NoCrowdEntity(Main plugin) {
 		// You need call Util.setTime to get loading time.
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Loading...");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Loading...");
 		UUID timeUUID = Util.setTimer();
 		this.plugin = plugin;
 		// Registering your events
@@ -42,11 +42,11 @@ public class NoCrowdEntity implements Listener {
 		// Don't forget this! You will got mess when reload your module!
 		uninited = false;
 		// Print out load time.
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Completed ("+Util.endTimer(timeUUID)+"ms)");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Completed ("+Util.endTimer(timeUUID)+"ms)");
 	}
 	public void uninit() {
 		// You need call Util.setTime to get unloading time.
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Unloading...");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Unloading...");
 		// Cleam all datas.
 		UUID timeUUID = Util.setTimer();
 		// Don't forget this! You will got mess when reload your module!
@@ -56,7 +56,7 @@ public class NoCrowdEntity implements Listener {
 		config=null;
 		limits=0;
 		// Print out unload time.
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Unloaded ("+Util.endTimer(timeUUID)+"ms)");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Unloaded ("+Util.endTimer(timeUUID)+"ms)");
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

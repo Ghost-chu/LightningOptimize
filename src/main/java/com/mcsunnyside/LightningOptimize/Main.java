@@ -33,8 +33,9 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this; //Keep at first line FOREVER!
-		MsgUtil.info("Lightning Optimize is loading...");
+		MsgUtil.info("Loader","Plugin Launcher","Initializing...");
 		long bootStartTime = System.currentTimeMillis();
+		MsgUtil.info("Loader","Plugin Launcher","Checking...");
 		boolean checkResult = BootChecker.checkEnv(); // <--- You can check Env in there.
 		if(!checkResult) {
 			MsgUtil.log("FATAL >> Environment check failed, Plugin will disabled...", Level.SEVERE);;
@@ -46,7 +47,7 @@ public class Main extends JavaPlugin {
 		//Init moduless
 		config = getConfig();
 		long bootTime = System.currentTimeMillis()-bootStartTime;
-		MsgUtil.info("Finished! ("+bootTime+"ms)");
+		MsgUtil.info("Loader","Plugin Launcher","Finished! ("+bootTime+"ms)");
 	}
 	
 	@Override

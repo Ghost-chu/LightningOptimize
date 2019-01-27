@@ -28,7 +28,7 @@ public class AntiWaterFall implements Listener {
 	private List<String> world_BlackList;
 	private ConfigurationSection config;
 	public AntiWaterFall(Main plugin) {
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Loading...");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Loading...");
 		UUID timeUUID = Util.setTimer();
 		this.plugin = plugin;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -39,12 +39,12 @@ public class AntiWaterFall implements Listener {
 		other_limit = config.getInt("other_limit");
 		world_BlackList = config.getStringList("world_blacklist");
 		uninited = false;
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Completed ("+Util.endTimer(timeUUID)+"ms)");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Completed ("+Util.endTimer(timeUUID)+"ms)");
 	}
 	public void uninit() {
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Unloading...");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Unloading...");
 		UUID timeUUID = Util.setTimer();
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Unloaded ("+Util.endTimer(timeUUID)+"ms)");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Unloaded ("+Util.endTimer(timeUUID)+"ms)");
 		uninited = true;
 	}
 	@EventHandler(priority=EventPriority.LOWEST,ignoreCancelled=true)

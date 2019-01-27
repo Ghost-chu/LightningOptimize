@@ -29,7 +29,7 @@ public class ChunkAutoUnloader implements Listener {
 
 	@SuppressWarnings("unchecked")
 	public ChunkAutoUnloader(Main plugin) {
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Loading...");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Loading...");
 		UUID timeUUID = Util.setTimer();
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		this.plugin = plugin;
@@ -39,17 +39,17 @@ public class ChunkAutoUnloader implements Listener {
 		this.unload_OutOfMemory = config.getBoolean("unloadtype.OutOfMemory.enable");
 		this.unload_OutOfMemory_limit = config.getInt("unloadtype.OutOfMemory.limit");
 		uninited=false;
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Completed ("+Util.endTimer(timeUUID)+"ms)");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Completed ("+Util.endTimer(timeUUID)+"ms)");
 		cronTask();
 	}
 	public void uninit() {
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Unloading...");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Unloading...");
 		UUID timeUUID = Util.setTimer();
 		task.cancel();
 		uninited=true;
 		world_BlackList.clear();
 		config=null;
-		MsgUtil.info("Moudles >> "+this.getClass().getName()+" >> Unloaded ("+Util.endTimer(timeUUID)+"ms)");
+		MsgUtil.info("Moudles",this.getClass().getName(),"Unloaded ("+Util.endTimer(timeUUID)+"ms)");
 	}
 	public void cronTask() {
 		task = new BukkitRunnable() {

@@ -25,7 +25,6 @@ public class ChunkAutoUnloader implements Listener {
 	private boolean unload_OutOfMemory = true;
 	private int unload_OutOfMemory_limit = 64;
 	private BukkitTask task;
-	boolean uninited = false;
 
 	@SuppressWarnings("unchecked")
 	public ChunkAutoUnloader(Main plugin) {
@@ -38,7 +37,6 @@ public class ChunkAutoUnloader implements Listener {
 		this.unload_NoPlayer = config.getBoolean("unloadtype.NoPlayer");
 		this.unload_OutOfMemory = config.getBoolean("unloadtype.OutOfMemory.enable");
 		this.unload_OutOfMemory_limit = config.getInt("unloadtype.OutOfMemory.limit");
-		uninited=false;
 		MsgUtil.info("Moudles",this.getClass().getName(),"Completed ("+Util.endTimer(timeUUID)+"ms)");
 		cronTask();
 	}
@@ -46,7 +44,6 @@ public class ChunkAutoUnloader implements Listener {
 		MsgUtil.info("Moudles",this.getClass().getName(),"Unloading...");
 		UUID timeUUID = Util.setTimer();
 		task.cancel();
-		uninited=true;
 		world_BlackList.clear();
 		config=null;
 		MsgUtil.info("Moudles",this.getClass().getName(),"Unloaded ("+Util.endTimer(timeUUID)+"ms)");
@@ -55,7 +52,6 @@ public class ChunkAutoUnloader implements Listener {
 		task = new BukkitRunnable() {
 			@Override
 			public void run() {
-				if(uninited)return;
 				List<World> worlds = Bukkit.getWorlds();
 				// Remove blacklisted worlds.
 				for (World world : worlds) {

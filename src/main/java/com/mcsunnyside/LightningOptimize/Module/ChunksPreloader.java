@@ -19,13 +19,11 @@ import com.mcsunnyside.LightningOptimize.Utils.Util;
 public class ChunksPreloader implements Listener {
 	List<UUID> ignorePlayer = new ArrayList<>();
 	Main plugin;
-	boolean uninited = false;
 	public ChunksPreloader(Main plugin) {
 		MsgUtil.info("Moudles",this.getClass().getName(),"Loading...");
 		UUID timeUUID = Util.setTimer();
 		this.plugin =plugin;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-		uninited = false;
 		MsgUtil.info("Moudles",this.getClass().getName(),"Completed ("+Util.endTimer(timeUUID)+"ms)");
 
 	}
@@ -33,13 +31,11 @@ public class ChunksPreloader implements Listener {
 		MsgUtil.info("Moudles",this.getClass().getName(),"Unloading...");
 		UUID timeUUID = Util.setTimer();
 		ignorePlayer.clear();
-		uninited =true;
 		MsgUtil.info("Moudles",this.getClass().getName(),"Unloaded ("+Util.endTimer(timeUUID)+"ms)");
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onPlayerTeleport(PlayerTeleportEvent e) {
-		if(uninited)return;
 		if (ignorePlayer.contains(e.getPlayer().getUniqueId()))
 			return;
 		TeleportCause cause = e.getCause();

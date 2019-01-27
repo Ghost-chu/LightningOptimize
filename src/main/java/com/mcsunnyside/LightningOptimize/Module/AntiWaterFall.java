@@ -24,7 +24,6 @@ public class AntiWaterFall implements Listener {
 	int lava_nether_limit = 10;
 	int water_limit = 10;
 	int other_limit = 10;
-	boolean uninited = false;
 	private List<String> world_BlackList;
 	private ConfigurationSection config;
 	public AntiWaterFall(Main plugin) {
@@ -38,18 +37,15 @@ public class AntiWaterFall implements Listener {
 		lava_nether_limit = config.getInt("lava_nether_limit");
 		other_limit = config.getInt("other_limit");
 		world_BlackList = config.getStringList("world_blacklist");
-		uninited = false;
 		MsgUtil.info("Moudles",this.getClass().getName(),"Completed ("+Util.endTimer(timeUUID)+"ms)");
 	}
 	public void uninit() {
 		MsgUtil.info("Moudles",this.getClass().getName(),"Unloading...");
 		UUID timeUUID = Util.setTimer();
 		MsgUtil.info("Moudles",this.getClass().getName(),"Unloaded ("+Util.endTimer(timeUUID)+"ms)");
-		uninited = true;
 	}
 	@EventHandler(priority=EventPriority.LOWEST,ignoreCancelled=true)
 	public void antiWaterfall (BlockFromToEvent e) {
-		if(uninited)return;
 		if((e.getBlock().getType()!=Material.WATER)&&(e.getBlock().getType()!=Material.LAVA)&&!e.getBlock().isLiquid())
 			return;
 		if(world_BlackList.contains(e.getBlock().getLocation().getWorld().getName()))
@@ -84,7 +80,7 @@ public class AntiWaterFall implements Listener {
 		}
 		boolean haveSomethingNoAIR = false;
 		for (Material type : sample) {
-			if(type!=Material.AIR) {
+			if(type!=Material.AIR&&type!=Material.VOID_AIR&&type!=Material.CAVE_AIR) {
 				haveSomethingNoAIR=true;
 				break;
 			}

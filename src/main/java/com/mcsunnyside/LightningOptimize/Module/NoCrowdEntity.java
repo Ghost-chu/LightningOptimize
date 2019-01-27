@@ -25,7 +25,6 @@ public class NoCrowdEntity implements Listener {
 	private List<String> entity_BlackList;
 	private List<String> world_BlackList;
 	private ConfigurationSection config;
-	boolean uninited = false;
 	@SuppressWarnings("unchecked")
 	public NoCrowdEntity(Main plugin) {
 		// You need call Util.setTime to get loading time.
@@ -39,8 +38,6 @@ public class NoCrowdEntity implements Listener {
 		this.limits = config.getInt("limits");
 		this.world_BlackList = (List<String>)config.getList("world_blacklist");
 		this.entity_BlackList = (List<String>)config.getList("entity_blacklist");
-		// Don't forget this! You will got mess when reload your module!
-		uninited = false;
 		// Print out load time.
 		MsgUtil.info("Moudles",this.getClass().getName(),"Completed ("+Util.endTimer(timeUUID)+"ms)");
 	}
@@ -49,8 +46,6 @@ public class NoCrowdEntity implements Listener {
 		MsgUtil.info("Moudles",this.getClass().getName(),"Unloading...");
 		// Cleam all datas.
 		UUID timeUUID = Util.setTimer();
-		// Don't forget this! You will got mess when reload your module!
-		uninited=true;
 		entity_BlackList.clear();
 		world_BlackList.clear();
 		config=null;
@@ -61,31 +56,26 @@ public class NoCrowdEntity implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onChunkLoad(ChunkLoadEvent e) {
-		if(uninited)return; // You need check and return checking, because your module already uninited! But Bukkit doen't think so.
 		crowedCheck(e.getChunk());
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onChunkUnLoad(ChunkUnloadEvent e) {
-		if(uninited)return; // You need check and return checking, because your module already uninited! But Bukkit doen't think so.
 		crowedCheck(e.getChunk());
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onWorldUnLoad(WorldUnloadEvent e) {
-		if(uninited)return; // You need check and return checking, because your module already uninited! But Bukkit doen't think so.
 		for (Chunk chunk : e.getWorld().getLoadedChunks()) {
 			crowedCheck(chunk);
 		}
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onWorldLoad(WorldLoadEvent e) {
-		if(uninited)return; // You need check and return checking, because your module already uninited! But Bukkit doen't think so.
 		for (Chunk chunk : e.getWorld().getLoadedChunks()) {
 			crowedCheck(chunk);
 		}
 	}
 
 	public void crowedCheck(Chunk chunk) {
-		if(uninited)return; // You need check and return checking, because your module already uninited! But Bukkit doen't think so.
 		Util.debugLog("Moudles >> NoCrowdEntity >> Check crowed chunk: " + chunk.toString());
 		if (world_BlackList.contains(chunk.getWorld().getName()))
 			return;

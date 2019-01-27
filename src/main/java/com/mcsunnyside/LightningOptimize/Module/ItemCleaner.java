@@ -33,7 +33,6 @@ public class ItemCleaner implements Listener {
 	private List<String> item_BlackList;
 	private List<String> world_BlackList;
 	private Map<Chunk, UUID> death_chunks;
-	boolean uninited = false;
 	@SuppressWarnings("unchecked")
 	public ItemCleaner(Main plugin) {
 		MsgUtil.info("Moudles",this.getClass().getName(),"Loading...");
@@ -43,13 +42,11 @@ public class ItemCleaner implements Listener {
 		config = Main.modules.createSection("ItemCleaner");
 		this.world_BlackList = (List<String>)config.getList("world_blacklist");
 		this.item_BlackList = (List<String>)config.getList("item_blacklist");
-		uninited=false;
 		MsgUtil.info("Moudles",this.getClass().getName(),"Completed ("+Util.endTimer(timeUUID)+"ms)");
 	}
 	public void uninit() {
 		MsgUtil.info("Moudles",this.getClass().getName(),"Unloading...");
 		UUID timeUUID = Util.setTimer();
-		uninited=true;
 		config=null;
 		item_BlackList.clear();
 		world_BlackList.clear();
@@ -58,36 +55,32 @@ public class ItemCleaner implements Listener {
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onChunkLoad(ChunkLoadEvent e) {
-		if(uninited)return;
 		itemsCheck(e.getChunk());
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onChunkUnLoad(ChunkUnloadEvent e) {
-		if(uninited)return;
 		itemsCheck(e.getChunk());
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onWorldUnLoad(WorldUnloadEvent e) {
-		if(uninited)return;
 		for (Chunk chunk : e.getWorld().getLoadedChunks()) {
 			itemsCheck(chunk);
 		}
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onWorldLoad(WorldLoadEvent e) {
-		if(uninited)return;
 		for (Chunk chunk : e.getWorld().getLoadedChunks()) {
 			itemsCheck(chunk);
 		}
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerDeath(PlayerDeathEvent e) {
-		if(uninited)return;
+		
 		death_chunks.put(e.getEntity().getLocation().getChunk(),e.getEntity().getUniqueId());
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerQuit(PlayerQuitEvent e) {
-		if(uninited)return;
+		
 		for (Entry<Chunk, UUID> entry : death_chunks.entrySet()) {
 			if(e.getPlayer().getUniqueId().equals(entry.getValue())) {
 				death_chunks.remove(entry.getKey());
@@ -98,7 +91,7 @@ public class ItemCleaner implements Listener {
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerPickup(EntityPickupItemEvent e) {
-		if(uninited)return;
+		
 		if(e.getEntityType()!=EntityType.PLAYER)
 			return;
 		Player player = (Player)e.getEntity();
@@ -107,7 +100,7 @@ public class ItemCleaner implements Listener {
 	}
 	
 	public void itemsCheck(Chunk chunk) {
-		if(uninited)return;
+		
 		if(death_chunks.containsKey(chunk))
 			return;
 		if(world_BlackList.contains(chunk.getWorld().getName()))

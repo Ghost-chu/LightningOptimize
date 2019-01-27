@@ -85,6 +85,12 @@ public class Main extends JavaPlugin {
 		if(modules.getBoolean("AntiWaterFall.enable"))
 			antiWaterFall.uninit();
 	}
+	public void reloadPlugin() {
+		MsgUtil.info("Loader","Plugin Launcher","Reloading...");
+		Bukkit.getPluginManager().disablePlugin(this);
+		Bukkit.getPluginManager().enablePlugin(this);
+		MsgUtil.info("Loader","Plugin Launcher","Reloaded...");
+	}
 	@Override
 	public FileConfiguration getConfig() {
 		return config;

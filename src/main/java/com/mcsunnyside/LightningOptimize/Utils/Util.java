@@ -45,7 +45,7 @@ public class Util {
 		return timerMap.get(uuid);
 	}
 	public static long endTimer(UUID uuid) {
-		long time = timerMap.get(uuid);
+		long time =System.currentTimeMillis()-timerMap.get(uuid);
 		timerMap.remove(uuid);
 		return time;
 	}

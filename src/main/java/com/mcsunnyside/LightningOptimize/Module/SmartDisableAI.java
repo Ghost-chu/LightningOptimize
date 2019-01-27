@@ -185,7 +185,6 @@ public class SmartDisableAI implements Listener {
 			if((entity instanceof LivingEntity)||!(entity_BlackList.contains(entity.getType().name())))
 				enableAI(entity);
 		}
-		saveDat();
 	}
 	@EventHandler(priority=EventPriority.MONITOR,ignoreCancelled=true)
 	private void onWorldUnload(WorldUnloadEvent e) {

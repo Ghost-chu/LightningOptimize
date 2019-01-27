@@ -41,7 +41,6 @@ public class SmartDisableAI implements Listener {
 	private String tagname = "Disabled AI";
 	private YamlConfiguration smartaidata;
 	private File smartaiFile;
-	boolean uninited = false;
 	@SuppressWarnings("unchecked")
 	public SmartDisableAI(Main plugin) {
 		MsgUtil.info("Moudles",this.getClass().getName(),"Loading...");
@@ -57,7 +56,6 @@ public class SmartDisableAI implements Listener {
 		this.tagname = config.getString("tagname");
 		aimap = new ArrayList<List<String>>();
 		smartaiFile = new File(plugin.getDataFolder(), "smartai.dat");
-		uninited=false;
 		if (!smartaiFile.exists()) {
 			plugin.saveResource("smartai.dat", true);
 		}
@@ -136,7 +134,6 @@ public class SmartDisableAI implements Listener {
 	}
 
 	private void switchAI() {
-		if(uninited)return;
 		Double tps = Util.getTPS();
 		if(limits>=tps) {
 			for (List<String> list : aimap) {
@@ -184,7 +181,6 @@ public class SmartDisableAI implements Listener {
 	}
 	@EventHandler(priority=EventPriority.MONITOR,ignoreCancelled=true)
 	private void onChunkUnload(ChunkUnloadEvent e) {
-		if(uninited)return;
 		for (Entity entity : e.getChunk().getEntities()) {
 			if((entity instanceof LivingEntity)||!(entity_BlackList.contains(entity.getType().name())))
 				enableAI(entity);
@@ -193,7 +189,7 @@ public class SmartDisableAI implements Listener {
 	}
 	@EventHandler(priority=EventPriority.MONITOR,ignoreCancelled=true)
 	private void onWorldUnload(WorldUnloadEvent e) {
-		if(uninited)return;
+
 		for (Chunk chunk : e.getWorld().getLoadedChunks()) {
 			for (Entity entity : chunk.getEntities()) {
 				if((entity instanceof LivingEntity)||!(entity_BlackList.contains(entity.getType().name())))

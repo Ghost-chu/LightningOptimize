@@ -7,8 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -65,36 +63,29 @@ public class ChunkAutoUnloader implements Listener {
 						if (trueFreeMemory < unload_OutOfMemory_limit) {
 							Chunk[] chunks = world.getLoadedChunks();
 							for (Chunk chunk : chunks) {
-								Entity[] entitys = chunk.getEntities();
-								boolean havePlayer = false;
-								for (Entity entity : entitys) {
-									if (entity.getType() == EntityType.PLAYER) {
-										havePlayer = true;
-										break;
-									}
+								if (!world.isChunkInUse(chunk.getX(), chunk.getZ())) {
+									chunk.unload(true); // Force unload
 								}
-								if (!havePlayer)
-									chunk.unload(true);
+//								Entity[] entitys = chunk.getEntities();
+//								boolean havePlayer = false;
+//								for (Entity entity : entitys) {
+//									if (entity.getType() == EntityType.PLAYER) {
+//										havePlayer = true;
+//										break;
+//									}
 							}
 						}
 
 					}
 					// ====================================
 					// ============NOP UNLOADER============
-					if(unload_NoPlayer) {
+					if (unload_NoPlayer) {
 						Chunk[] chunks = world.getLoadedChunks();
 						for (Chunk chunk : chunks) {
-							Entity[] entitys = chunk.getEntities();
-							boolean havePlayer = false;
-							for (Entity entity : entitys) {
-								if (entity.getType() == EntityType.PLAYER) {
-									havePlayer = true;
-									break;
-								}
+							if (!world.isChunkInUse(chunk.getX(), chunk.getZ())) {
+								chunk.unload(true); // Force unload
 							}
-							if (!havePlayer)
-								chunk.unload(true);
-						}	
+						}
 					}
 					// ====================================
 				}

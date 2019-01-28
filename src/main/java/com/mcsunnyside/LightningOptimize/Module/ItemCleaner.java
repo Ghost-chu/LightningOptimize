@@ -75,7 +75,6 @@ public class ItemCleaner implements Listener {
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerDeath(PlayerDeathEvent e) {
-		
 		death_chunks.put(e.getEntity().getLocation().getChunk(),e.getEntity().getUniqueId());
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -91,7 +90,6 @@ public class ItemCleaner implements Listener {
 	}
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerPickup(EntityPickupItemEvent e) {
-		
 		if(e.getEntityType()!=EntityType.PLAYER)
 			return;
 		Player player = (Player)e.getEntity();
@@ -100,7 +98,6 @@ public class ItemCleaner implements Listener {
 	}
 	
 	public void itemsCheck(Chunk chunk) {
-		
 		if(death_chunks.containsKey(chunk))
 			return;
 		if(world_BlackList.contains(chunk.getWorld().getName()))
@@ -108,11 +105,11 @@ public class ItemCleaner implements Listener {
 		Entity[] entity = chunk.getEntities();
 		for (Entity entity2 : entity) {
 			if(entity2.getType()!=EntityType.DROPPED_ITEM)
-				return;
+				continue;
 			Item item = (Item)entity2;
 			ItemStack itemStack = item.getItemStack();
 			if(item_BlackList.contains(itemStack.getType().name()))
-				return;
+				continue;
 			entity2.remove();
 		}
 	}

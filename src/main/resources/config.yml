@@ -92,4 +92,7 @@ moudules:
         lava_nether_limit: 10
         water_limit: 10
         other_limit: 10
+    DoublePlayerProtect:
+        enable: true
+        message: "No double same Username/UniqueID player can online in same time!"
         

@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.mcsunnyside.LightningOptimize.Module.AntiWaterFall;
 import com.mcsunnyside.LightningOptimize.Module.ChunkAutoUnloader;
 import com.mcsunnyside.LightningOptimize.Module.ChunksPreloader;
+import com.mcsunnyside.LightningOptimize.Module.DoublePlayerProtect;
 import com.mcsunnyside.LightningOptimize.Module.ItemCleaner;
 import com.mcsunnyside.LightningOptimize.Module.NoCrowdEntity;
 import com.mcsunnyside.LightningOptimize.Module.SmartDisableAI;
@@ -29,6 +30,7 @@ public class Main extends JavaPlugin {
 	private SmartDisableAI smartDisableAI;
 	private ChunksPreloader chunksPreloader;
 	private AntiWaterFall antiWaterFall;
+	private DoublePlayerProtect doublePlayerProtect;
 	@Override
 	public void onEnable() {
 		instance = this; //Keep at first line FOREVER!
@@ -68,6 +70,10 @@ public class Main extends JavaPlugin {
 			chunksPreloader = new ChunksPreloader(this);
 		if(modules.getBoolean("AntiWaterFall.enable"))
 			antiWaterFall = new AntiWaterFall(this);
+		if(modules.getBoolean("AntiWaterFall.enable"))
+			antiWaterFall = new AntiWaterFall(this);
+		if(modules.getBoolean("DoublePlayerProtect.enable"))
+			doublePlayerProtect = new DoublePlayerProtect(this);
 	}
 	public void uninitModules() {
 		// <--- Registering your moudules in there! See NoCrowedEntity.java for Module standard demo!
@@ -84,6 +90,8 @@ public class Main extends JavaPlugin {
 			chunksPreloader.uninit();
 		if(modules.getBoolean("AntiWaterFall.enable"))
 			antiWaterFall.uninit();
+		if(modules.getBoolean("DoublePlayerProtect.enable"))
+			doublePlayerProtect.uninit();
 	}
 	public void reloadPlugin() {
 		MsgUtil.info("Loader","Plugin Launcher","Reloading...");

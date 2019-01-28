@@ -110,7 +110,8 @@ public class ItemCleaner implements Listener {
 			ItemStack itemStack = item.getItemStack();
 			if(item_BlackList.contains(itemStack.getType().name()))
 				continue;
-			entity2.remove();
+			if(item.getTicksLived()>config.getInt("delay"))
+				entity2.remove();
 		}
 	}
 }

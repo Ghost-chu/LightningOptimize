@@ -27,6 +27,8 @@ moudules:
     # To give player a great game experience.
     # When player death, that chunk will auto protected until player offline or go back pick him items.
         enable: true
+        # Item must lived max than delay and they will be deleted
+        delay: 1200
         world_blacklist: 
             - w1
             - w2
